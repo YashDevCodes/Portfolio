@@ -69,3 +69,54 @@ navLinks.querySelectorAll("a").forEach((link) => {
     menuToggle.textContent = "☰";
   });
 });
+
+const cityInput = document.getElementById("cityInput");
+const weatherButton = document.getElementById("weatherButton");
+const weatherResult = document.getElementById("weatherResult");
+
+async function getWeather() {
+    const city = cityInput.value.trim();
+
+    if (!city) {
+        weatherResult.textContent = "Please enter a city name.";
+        return;
+    }
+
+    weatherResult.textContent = "Loading weather...";
+    weatherButton.disabled = true;
+
+    try {
+        const weatherApiKey = "81a0f468d46c130f7257be6c3d14dabc";
+
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${weatherApiKey}&units=metric`;
+
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(
+                data.message || "Unable to fetch weather."
+            );
+        }
+
+        weatherResult.textContent =
+            `${data.name}: ${data.main.temp}°C, ` +
+            `${data.weather[0].description}. ` +
+            `Humidity: ${data.main.humidity}%.`;
+
+    } catch (error) {
+        weatherResult.textContent = error.message;
+        console.error("Weather error:", error);
+
+    } finally {
+        weatherButton.disabled = false;
+    }
+}
+
+weatherButton.addEventListener("click", getWeather);
+
+cityInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        getWeather();
+    }
+});
