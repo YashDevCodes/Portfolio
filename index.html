@@ -6,6 +6,7 @@
   <meta name="description" content="Yash Dadoo — BTech AI/ML student at JECRC University. Explore my skills and programming projects.">
   <title>Yash Dadoo | AI/ML Student & Developer</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="chatbot.css">
   <script src="script.js" defer></script>
 </head>
 <body>
@@ -259,6 +260,29 @@
 
   </main>
 
+  <section id="portfolio-chatbot" class="chatbot-section">
+    <h2>Ask My Portfolio Chatbot</h2>
+    <p>Ask a question and get a response from the AI.</p>
+
+    <div id="chatMessages" class="chat-messages" aria-live="polite">
+        <p class="bot-message">
+            Hello! Ask me something about this portfolio.
+        </p>
+    </div>
+
+    <form id="chatForm" class="chat-form">
+        <input
+            id="chatInput"
+            type="text"
+            placeholder="Type your question"
+            required
+        >
+        <button id="chatSend" type="submit">Send</button>
+    </form>
+
+    <p id="chatStatus" aria-live="polite"></p>
+</section>
+
   <footer class="footer">
     <div class="container footer-content">
       <p>© <span id="currentYear"></span> Yash Dadoo</p>
@@ -266,5 +290,7 @@
       <a href="#home">Back to top ↑</a>
     </div>
   </footer>
+  <script src="chatbot.js"></script>
+  <script src="config.js"></script>
 </body>
 </html>
